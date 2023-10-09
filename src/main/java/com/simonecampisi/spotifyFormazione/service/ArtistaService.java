@@ -1,6 +1,7 @@
 package com.simonecampisi.spotifyFormazione.service;
 
 import com.simonecampisi.spotifyFormazione.dto.request.CreateArtistaRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.ModificaArtistaRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.abstraction.AbstractArtistaRequest;
 import com.simonecampisi.spotifyFormazione.dto.response.ArtistaResponse;
 import com.simonecampisi.spotifyFormazione.model.Artista;
@@ -17,7 +18,10 @@ public class ArtistaService extends GenericService<Artista, Long> {
     private ArtistaHelper helper;
 
     public ArtistaResponse createArtista(CreateArtistaRequest request) {
-        Artista a = helper.buildEntityFromRequest(request);
-        return helper.buildResponse(super.create(a));
+        return helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
+    }
+
+    public ArtistaResponse modificaArtista(ModificaArtistaRequest request) {
+        return helper.buildResponse(super.update(helper.updateArtistaFromRequest(super.read(request.getIdArtista()), request)));
     }
 }

@@ -1,6 +1,7 @@
 package com.simonecampisi.spotifyFormazione.service.helper;
 
 import com.simonecampisi.spotifyFormazione.dto.request.CreateArtistaRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.ModificaArtistaRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.abstraction.AbstractArtistaRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.abstraction.IRequest;
 import com.simonecampisi.spotifyFormazione.dto.response.ArtistaResponse;
@@ -27,10 +28,14 @@ public class ArtistaHelper implements IHelper<Artista, AbstractArtistaRequest>{
 
     @Override
     public Artista buildEntityFromRequest(AbstractArtistaRequest request) {
-        Artista a = new Artista();
-        a.setNome(request.getNome());
-        a.setImgProfilo(base64ToImg(request.getImgProfilo())); //Builder non accetta imgProfilo
-        return a;
+        Artista artista = new Artista();
+        artista.setNome(request.getNome());
+        if(request.getNome().isEmpty()) {
+            artista.setImgProfilo(null);
+        } else {
+            artista.setImgProfilo(base64ToImg(request.getImgProfilo()));
+        }
+        return artista;
     }
 
     public ArtistaResponse buildResponse(Artista entity) {
@@ -41,5 +46,15 @@ public class ArtistaHelper implements IHelper<Artista, AbstractArtistaRequest>{
                 .build();
     }
 
+    public Artista updateArtistaFromRequest(Artista artista, ModificaArtistaRequest request) {
+        artista.setNome(request.getNome());
+        if(request.getNome().isEmpty()) {
+            artista.setImgProfilo(null);
+        } else {
+            artista.setImgProfilo(base64ToImg(request.getImgProfilo()));
+        }
+
+        return artista;
+    }
 
 }

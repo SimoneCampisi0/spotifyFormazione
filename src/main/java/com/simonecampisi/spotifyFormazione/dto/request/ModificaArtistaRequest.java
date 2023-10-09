@@ -6,6 +6,5 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 public class ModificaArtistaRequest extends AbstractArtistaRequest {
-
     private Long idArtista;
 }
