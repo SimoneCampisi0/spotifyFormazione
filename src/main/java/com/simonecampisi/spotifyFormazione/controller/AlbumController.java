@@ -9,8 +9,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("gestione-album")
@@ -19,7 +22,7 @@ public class AlbumController extends AbstractController<Album, Long> {
 
     @PostMapping
     @Operation(summary = "Aggiungi album")
-    public ResponseEntity<?> aggiungiAlbum (CreateAlbumRequest request) {
+    public ResponseEntity<?> aggiungiAlbum (@Valid @RequestBody CreateAlbumRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).addAlbum(request));
     }
 }

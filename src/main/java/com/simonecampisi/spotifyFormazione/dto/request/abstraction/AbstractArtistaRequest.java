@@ -14,5 +14,6 @@ public abstract class AbstractArtistaRequest implements IRequest {
     @NotEmpty(message = "Nome obbligatorio.")
     private String nome;
 
+    @NotEmpty(message = "Immagine obbligatoria.")
     private String imgProfilo;
 }

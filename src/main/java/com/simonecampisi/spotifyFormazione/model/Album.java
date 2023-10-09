@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +20,6 @@ public class Album {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAlbum;
 
-    @NotBlank(message = "Titolo obbligatorio.")
     private String titolo;
 
     private GenereMusicale genereMusicale;
