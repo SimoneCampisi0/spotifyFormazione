@@ -10,7 +10,7 @@ import java.util.List;
 public abstract class GenericService<T, ID> {
 
     @Autowired
-    private GenericRepository<T, ID> repository;
+    public GenericRepository<T, ID> repository;
 
     public T create(T entity) {
         return repository.save(entity);

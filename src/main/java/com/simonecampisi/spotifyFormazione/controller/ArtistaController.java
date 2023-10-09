@@ -4,8 +4,11 @@ import com.simonecampisi.spotifyFormazione.controller.abstraction.AbstractContro
 import com.simonecampisi.spotifyFormazione.dto.request.CreateArtistaRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.ModificaArtistaRequest;
 import com.simonecampisi.spotifyFormazione.model.Artista;
+import com.simonecampisi.spotifyFormazione.model.enums.SortingOrder;
 import com.simonecampisi.spotifyFormazione.service.ArtistaService;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -28,5 +31,22 @@ public class ArtistaController extends AbstractController<Artista, Long> {
     @Operation(summary  = "Modifica un artista.")
     public ResponseEntity<?> modificaArtista(@Valid @RequestBody ModificaArtistaRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((ArtistaService)service).modificaArtista(request));
+    }
+
+    @GetMapping()
+    @Operation(summary = "Dettaglio artista.")
+    public ResponseEntity<?> dettaglioArtista(@RequestParam Long idArtista) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.read(idArtista));
+    }
+
+    @GetMapping("/lista-artisti")
+    @Operation(summary = "Lista artista.")
+    public ResponseEntity<?> listaArtisti(
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "nome") String sortBy,
+            @RequestParam(defaultValue = "ASC") SortingOrder sortingOrder
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(((ArtistaService)service).findAllPage(pageNumber, pageSize, sortBy, sortingOrder));
     }
 }
