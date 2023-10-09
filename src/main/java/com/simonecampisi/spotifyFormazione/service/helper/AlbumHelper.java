@@ -16,6 +16,10 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
     @Autowired
     private ArtistaRepository artistaRepository;
 
+    @Autowired
+    private ArtistaHelper artistaHelper;
+
+
     public byte [] base64ToImg(String base64) {
         byte [] img = null;
         try {
@@ -55,6 +59,7 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
                 .titolo(album.getTitolo())
                 .genereMusicale(album.getGenereMusicale())
                 .genereMusicale(album.getGenereMusicale())
+                .artistaResponse(artistaHelper.buildResponse(album.getArtista()))
                 .build();
     }
 }

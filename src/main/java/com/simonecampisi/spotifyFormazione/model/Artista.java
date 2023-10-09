@@ -2,6 +2,7 @@ package com.simonecampisi.spotifyFormazione.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -13,6 +14,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "elencoAlbum")
+
 public class Artista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +27,7 @@ public class Artista {
     @Column(name = "imgProfilo", columnDefinition = "BLOB")
     private byte [] imgProfilo;
 
-//    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "artista", cascade = CascadeType.REMOVE, orphanRemoval = true)
+//    @OneToMany(mappedBy = "album")
     private Set<Album> elencoAlbum;
 }

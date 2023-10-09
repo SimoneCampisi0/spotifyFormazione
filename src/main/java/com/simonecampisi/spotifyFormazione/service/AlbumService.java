@@ -15,7 +15,6 @@ public class AlbumService extends GenericService<Album, Long> {
 
     public AlbumResponse addAlbum(CreateAlbumRequest request) {
         Album album = super.create(helper.buildEntityFromRequest(request));
-        System.out.println(album.toString());
         return helper.buildResponse(album);
     }
 }
