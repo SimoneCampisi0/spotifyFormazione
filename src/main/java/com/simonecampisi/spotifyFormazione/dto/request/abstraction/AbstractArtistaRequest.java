@@ -10,5 +10,5 @@ import javax.persistence.Lob;
 public abstract class AbstractArtistaRequest implements IRequest {
     private String nome;
 
-    private byte [] imgProfilo;
+    private String imgProfilo;
 }
