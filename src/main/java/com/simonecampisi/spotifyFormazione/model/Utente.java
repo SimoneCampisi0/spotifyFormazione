@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Set;
@@ -13,18 +14,20 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Artista {
+public class Utente {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idUtente;
 
-    private String nome;
+    @NotBlank(message = "Nome utente obbligatorio.")
+    private String nomeUtente;
+
+    @Email
+    private String email;
 
     @Lob
     @Column(name = "imgProfilo", columnDefinition = "BLOB")
     private byte [] imgProfilo;
 
-//    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @OneToMany(mappedBy = "album")
-    private Set<Album> elencoAlbum;
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Playlist> elencoPlaylist;
 }

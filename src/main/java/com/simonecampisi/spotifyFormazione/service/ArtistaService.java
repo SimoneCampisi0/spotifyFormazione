@@ -1,17 +1,14 @@
 package com.simonecampisi.spotifyFormazione.service;
 
-import com.simonecampisi.spotifyFormazione.dto.request.CreateArtistaRequest;
-import com.simonecampisi.spotifyFormazione.dto.request.ModificaArtistaRequest;
-import com.simonecampisi.spotifyFormazione.dto.request.abstraction.AbstractArtistaRequest;
-import com.simonecampisi.spotifyFormazione.dto.response.ArtistaResponse;
+import com.simonecampisi.spotifyFormazione.dto.request.artista.CreateArtistaRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.artista.ModificaArtistaRequest;
+import com.simonecampisi.spotifyFormazione.dto.response.artista.ArtistaResponse;
 import com.simonecampisi.spotifyFormazione.model.Artista;
 import com.simonecampisi.spotifyFormazione.model.enums.SortingOrder;
 import com.simonecampisi.spotifyFormazione.repository.ArtistaRepository;
 import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
 import com.simonecampisi.spotifyFormazione.service.helper.ArtistaHelper;
-import com.simonecampisi.spotifyFormazione.service.helper.abstraction.IHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

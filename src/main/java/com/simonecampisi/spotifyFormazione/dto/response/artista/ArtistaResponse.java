@@ -1,4 +1,4 @@
-package com.simonecampisi.spotifyFormazione.dto.response;
+package com.simonecampisi.spotifyFormazione.dto.response.artista;
 
 import com.simonecampisi.spotifyFormazione.dto.response.abstraction.AbstractArtistaResponse;
 import lombok.AllArgsConstructor;

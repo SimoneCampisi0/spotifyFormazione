@@ -1,17 +1,14 @@
 package com.simonecampisi.spotifyFormazione.controller;
 
 import com.simonecampisi.spotifyFormazione.controller.abstraction.AbstractController;
-import com.simonecampisi.spotifyFormazione.dto.request.CreateArtistaRequest;
-import com.simonecampisi.spotifyFormazione.dto.request.ModificaArtistaRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.artista.CreateArtistaRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.artista.ModificaArtistaRequest;
 import com.simonecampisi.spotifyFormazione.model.Artista;
 import com.simonecampisi.spotifyFormazione.model.enums.SortingOrder;
 import com.simonecampisi.spotifyFormazione.service.ArtistaService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -49,4 +46,11 @@ public class ArtistaController extends AbstractController<Artista, Long> {
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(((ArtistaService)service).findAllPage(pageNumber, pageSize, sortBy, sortingOrder));
     }
+
+//    @DeleteMapping
+//    @Operation(summary = "Elimina un artista")
+//    public ResponseEntity<?> eliminaArtista(@RequestParam Long idArtista) {
+//
+//        return ResponseEntity.ok(HttpStatus.OK);
+//    }
 }
