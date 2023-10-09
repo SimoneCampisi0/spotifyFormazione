@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public abstract class GenericService<T, ID> {
-    @Autowired
-    private IHelper<T> helper;
 
     @Autowired
     private GenericRepository<T, ID> repository;

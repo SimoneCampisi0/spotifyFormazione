@@ -7,5 +7,5 @@ import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
 @RestController
 public abstract class AbstractController<T, ID> {
     @Autowired
-    private GenericService<T, ID> service;
+    public GenericService<T, ID> service;
 }
