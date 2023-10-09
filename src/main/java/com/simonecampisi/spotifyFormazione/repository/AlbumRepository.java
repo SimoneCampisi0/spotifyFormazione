@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AlbumRepository extends GenericRepository<Album, Long> {
-//    Page<Album> findAll(Pageable pageable);
+    Page<Album> findAll(Pageable pageable);
 }

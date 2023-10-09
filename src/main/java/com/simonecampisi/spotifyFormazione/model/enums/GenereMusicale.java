@@ -10,5 +10,14 @@ public enum GenereMusicale {
     RAP,
     COUNTRY,
     METAL,
-    REGGAE
+    REGGAE;
+
+    public static boolean isValid(String value) {
+        try {
+            GenereMusicale.valueOf(value);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
 }

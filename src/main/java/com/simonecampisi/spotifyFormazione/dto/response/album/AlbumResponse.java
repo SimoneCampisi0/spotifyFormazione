@@ -13,8 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import java.time.Duration;
 import java.util.Set;
 @Data
 @SuperBuilder
 public class AlbumResponse extends AbstractAlbumResponse {
+    private Integer numTracks;
+
+    private Duration totalDuration;
 }
