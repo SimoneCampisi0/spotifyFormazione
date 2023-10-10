@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -35,5 +36,5 @@ public class Album {
     private Artista artista;
 
     @OneToMany(mappedBy = "album")
-    private Set<Brano> elencoBrani;
+    private Set<Brano> elencoBrani = new HashSet<>();
 }

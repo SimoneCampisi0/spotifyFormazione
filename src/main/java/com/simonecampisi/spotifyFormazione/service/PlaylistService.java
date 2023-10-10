@@ -30,17 +30,16 @@ public class PlaylistService extends GenericService<Playlist, Long> {
         return helper.buildResponse(super.update(playlist));
     }
 
-    public void addBranoToPlaylist(AddBranoPlaylistRequest request) { //TODO: fix update
-        Playlist playlist = super.read(request.getIdPlaylist());
-        Set<Brano> braniSet = playlist.getElencoBrani();
-
-        Brano brano = branoService.read(request.getIdBrano());
-        braniSet.add(brano);
-
-        playlist.setElencoBrani(braniSet);
-
-
-
-        super.update(playlist);
-    }
+//    public void addBranoToPlaylist(AddBranoPlaylistRequest request) { //TODO: fix update.
+//        Playlist playlist = super.read(request.getIdPlaylist());
+//        Set<Brano> braniSet = playlist.getElencoBrani();
+//
+//        Brano brano = branoService.read(request.getIdBrano());
+//        braniSet.add(brano);
+//
+//        playlist.setElencoBrani(braniSet);
+//
+//
+//        super.update(playlist);
+//    }
 }

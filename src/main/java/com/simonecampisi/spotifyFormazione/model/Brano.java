@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.Duration;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -32,5 +33,5 @@ public class Brano {
             name = "brani_playlist",
             joinColumns = @JoinColumn(name = "brano_id"),
             inverseJoinColumns = @JoinColumn(name = "playlist_id"))
-    private Set<Playlist> elencoPlaylist;
+    private Set<Playlist> elencoPlaylist = new HashSet<>();
 }
