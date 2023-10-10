@@ -1,6 +1,7 @@
 package com.simonecampisi.spotifyFormazione.service.helper;
 
 import com.simonecampisi.spotifyFormazione.dto.request.abstraction.AbstractUtenteRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.utente.ModificaUtenteRequest;
 import com.simonecampisi.spotifyFormazione.dto.response.utente.UtenteResponse;
 import com.simonecampisi.spotifyFormazione.dto.response.utente.ViewUtenteResponse;
 import com.simonecampisi.spotifyFormazione.model.Brano;
@@ -69,5 +70,12 @@ public class UtenteHelper implements IHelper<Utente, AbstractUtenteRequest> {
                         .reduce(Duration.ZERO, Duration::plus))
                 )
                 .build();
+    }
+
+    public Utente buildEntityForUpdate(ModificaUtenteRequest request, Utente utente) {
+        utente.setNomeUtente(request.getNomeUtente());
+        utente.setEmail(request.getEmail());
+        utente.setImgProfilo(imageManager.base64ToImg(request.getImgProfilo()));
+        return utente;
     }
 }

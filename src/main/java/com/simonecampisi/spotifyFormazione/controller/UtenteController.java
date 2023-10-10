@@ -2,6 +2,7 @@ package com.simonecampisi.spotifyFormazione.controller;
 
 import com.simonecampisi.spotifyFormazione.controller.abstraction.AbstractController;
 import com.simonecampisi.spotifyFormazione.dto.request.utente.CreateUtenteRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.utente.ModificaUtenteRequest;
 import com.simonecampisi.spotifyFormazione.model.Utente;
 import com.simonecampisi.spotifyFormazione.model.enums.SortingOrder;
 import com.simonecampisi.spotifyFormazione.service.UtenteService;
@@ -20,6 +21,12 @@ public class UtenteController extends AbstractController<Utente, Long> {
     @Operation(summary = "Aggiungi un utente")
     public ResponseEntity<?> aggiungiUtente(@Valid @RequestBody CreateUtenteRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).createUtente(request));
+    }
+
+    @PutMapping
+    @Operation(summary = "Modifica un utente")
+    public ResponseEntity<?> modificaUtente(@Valid @RequestBody ModificaUtenteRequest request) {
+        return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).modificaUtente(request));
     }
 
     @GetMapping("/lista-utenti")

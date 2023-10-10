@@ -1,6 +1,7 @@
 package com.simonecampisi.spotifyFormazione.service;
 
 import com.simonecampisi.spotifyFormazione.dto.request.utente.CreateUtenteRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.utente.ModificaUtenteRequest;
 import com.simonecampisi.spotifyFormazione.dto.response.utente.UtenteResponse;
 import com.simonecampisi.spotifyFormazione.dto.response.utente.ViewUtenteResponse;
 import com.simonecampisi.spotifyFormazione.model.Utente;
@@ -23,6 +24,11 @@ public class UtenteService extends GenericService<Utente, Long> {
 
     public UtenteResponse createUtente(CreateUtenteRequest request) {
         return helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
+    }
+
+    public UtenteResponse modificaUtente(ModificaUtenteRequest request) {
+        Utente utente = helper.buildEntityForUpdate(request, super.read(request.getIdUtente()));
+        return helper.buildResponse(super.update(utente));
     }
 
     public Page<ViewUtenteResponse> findAllUtenti(Integer pageNumber, Integer pageSize, String sortBy, SortingOrder sortingOrder) {
