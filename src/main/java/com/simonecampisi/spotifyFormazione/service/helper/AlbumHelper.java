@@ -68,7 +68,6 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
     }
 
     public AlbumResponse buildResponse(Album album) {
-        //Implementare - trova la lista delle tracce e calcolarne la lunghezza. Stessa cosa per la durata, da sommare per ogni brano
         return AlbumResponse.builder()
                 .idAlbum(album.getIdAlbum())
                 .cover(album.getCover())

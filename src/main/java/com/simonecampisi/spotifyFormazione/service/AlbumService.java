@@ -22,8 +22,11 @@ public class AlbumService extends GenericService<Album, Long> {
     private AlbumHelper helper;
 
     public AlbumResponse addAlbum(CreateAlbumRequest request) {
-        Album album = super.create(helper.buildEntityFromRequest(request));
-        return helper.buildResponse(album);
+        return helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
+    }
+
+    public AlbumResponse readAlbum(Long idAlbum) {
+        return helper.buildResponse(super.read(idAlbum));
     }
 
     public Page<AlbumResponse> listAlbum(Integer pageNumber, Integer pageSize, String sortBy, SortingOrder sortingOrder, String sortingFilter) {

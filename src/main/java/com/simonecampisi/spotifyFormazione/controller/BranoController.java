@@ -22,9 +22,17 @@ public class BranoController extends AbstractController<Brano, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).addBrano(request));
     }
 
+    @GetMapping
+    @Operation(summary = "Lista di tutti i brani per album")
+    public ResponseEntity<?> listaBrani (@RequestParam Long idAlbum) {
+        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBrani(idAlbum));
+    }
+
     @PutMapping
     @Operation(summary = "Modifica brano")
     public ResponseEntity<?> modificaBrano (@Valid @RequestBody ModificaBranoRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).modificaBrano(request));
     }
+
+
 }
