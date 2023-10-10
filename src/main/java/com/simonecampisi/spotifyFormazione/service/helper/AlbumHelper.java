@@ -56,6 +56,8 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
         album.setTitolo(request.getTitolo());
         album.setGenereMusicale(request.getGenereMusicale());
         album.setArtista(readArtista(request.getIdArtista()));
+        album.setDataUscita(request.getDataUscita());
+
         if(request.getCover().isEmpty()) {
             album.setCover(null);
         } else {
@@ -72,6 +74,7 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
                 .cover(album.getCover())
                 .titolo(album.getTitolo())
                 .genereMusicale(album.getGenereMusicale())
+                .dataUscita(album.getDataUscita())
                 .artistaResponse(artistaHelper.buildResponse(album.getArtista()))
                 .numTracks(album.getElencoBrani() == null ? 0 : album.getElencoBrani().size())
                 .totalDuration(sumDuration(album.getElencoBrani()))

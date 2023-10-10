@@ -9,9 +9,7 @@ import com.simonecampisi.spotifyFormazione.repository.ArtistaRepository;
 import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
 import com.simonecampisi.spotifyFormazione.service.helper.ArtistaHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,16 +33,20 @@ public class ArtistaService extends GenericService<Artista, Long> {
         return helper.buildResponse(super.update(helper.updateArtistaFromRequest(super.read(request.getIdArtista()), request)));
     }
 
-    public List<ArtistaResponse> findAllPage(Integer pageNumber, Integer pageSize, String sortBy, SortingOrder sortingOrder) {
+    public Page<ArtistaResponse> findAllPage(Integer pageNumber, Integer pageSize, String sortBy, SortingOrder sortingOrder) {
         Pageable pageable;
         if (sortingOrder.equals(SortingOrder.ASC)) {
             pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
         } else {
             pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         }
-        return ((ArtistaRepository)repository).findAll(pageable).getContent()
+
+        List<ArtistaResponse> artistaResponseList = ((ArtistaRepository)repository).findAll(pageable)
                 .stream()
                 .map(a -> helper.buildResponse(a))
                 .collect(Collectors.toList());
+
+        return new PageImpl<ArtistaResponse>(artistaResponseList, pageable,  repository.findAll().size());
+
     }
 }

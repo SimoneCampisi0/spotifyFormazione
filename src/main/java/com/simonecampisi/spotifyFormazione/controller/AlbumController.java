@@ -2,7 +2,6 @@ package com.simonecampisi.spotifyFormazione.controller;
 
 import com.simonecampisi.spotifyFormazione.controller.abstraction.AbstractController;
 import com.simonecampisi.spotifyFormazione.dto.request.album.CreateAlbumRequest;
-import com.simonecampisi.spotifyFormazione.dto.response.album.AlbumResponse;
 import com.simonecampisi.spotifyFormazione.model.Album;
 import com.simonecampisi.spotifyFormazione.model.enums.SortingOrder;
 import com.simonecampisi.spotifyFormazione.service.AlbumService;
@@ -29,8 +28,9 @@ public class AlbumController extends AbstractController<Album, Long> {
     public ResponseEntity<?> listAlbum (@RequestParam(defaultValue = "0") Integer pageNumber,
                                         @RequestParam(defaultValue = "10") Integer pageSize,
                                         @RequestParam(defaultValue = "titolo") String sortBy,
-                                        @RequestParam(defaultValue = "ASC") SortingOrder sortingOrder) {
-        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).listAlbum(pageNumber, pageSize, sortBy, sortingOrder));
+                                        @RequestParam(defaultValue = "ASC") SortingOrder sortingOrder,
+                                        @RequestParam(required = false) String sortingFilter) {
+        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).listAlbum(pageNumber, pageSize, sortBy, sortingOrder, sortingFilter));
     }
 
     @GetMapping("/lista-album-da-artista")

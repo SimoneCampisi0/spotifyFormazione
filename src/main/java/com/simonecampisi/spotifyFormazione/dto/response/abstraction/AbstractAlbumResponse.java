@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Lob;
+import java.time.LocalDate;
 
 @Data
 @SuperBuilder
@@ -15,6 +16,8 @@ public abstract class AbstractAlbumResponse {
     private String titolo;
 
     private GenereMusicale genereMusicale;
+
+    private LocalDate dataUscita;
 
     private byte [] cover;
 

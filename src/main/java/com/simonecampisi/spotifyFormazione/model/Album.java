@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -20,6 +21,8 @@ public class Album {
     private String titolo;
 
     private GenereMusicale genereMusicale;
+
+    private LocalDate dataUscita;
 
     @Lob
     @Column(name = "cover", columnDefinition = "BLOB")

@@ -1,16 +1,12 @@
 package com.simonecampisi.spotifyFormazione.dto.request.abstraction;
 
-import com.simonecampisi.spotifyFormazione.model.Brano;
+
 import com.simonecampisi.spotifyFormazione.model.enums.GenereMusicale;
 import lombok.Data;
-
-import javax.persistence.Column;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import java.time.LocalDate;
+
 
 @Data
 public abstract class AbstractAlbumRequest implements IRequest {
@@ -19,6 +15,10 @@ public abstract class AbstractAlbumRequest implements IRequest {
 
     @NotNull(message = "Genere musicale obbligatorio.")
     private GenereMusicale genereMusicale;
+
+    @NotNull(message = "Data di uscita obbligatoria.")
+    private LocalDate dataUscita;
+
 
     @NotBlank(message = "Immagine obbligatoria.")
     private String cover;
