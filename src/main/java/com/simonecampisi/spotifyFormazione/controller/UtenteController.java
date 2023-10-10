@@ -46,5 +46,12 @@ public class UtenteController extends AbstractController<Utente, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).findAllUtenti(pageNumber, pageSize, sortBy, sortingOrder));
     }
 
+    @DeleteMapping
+    @Operation(summary = "Elimina un utente.")
+    public ResponseEntity<?> eliminaUtente(@RequestParam Long idUtente) {
+        service.deleteById(idUtente);
+        return ResponseEntity.status(HttpStatus.OK).body("OK");
+    }
+
 
 }

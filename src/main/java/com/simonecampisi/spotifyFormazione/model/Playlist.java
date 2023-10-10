@@ -14,6 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Playlist {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPlaylist;
 
     private String nome;

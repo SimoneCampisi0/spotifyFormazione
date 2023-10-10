@@ -10,6 +10,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "elencoPlaylist")
 public class Utente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
