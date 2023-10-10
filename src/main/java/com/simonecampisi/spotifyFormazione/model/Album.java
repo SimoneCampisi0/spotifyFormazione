@@ -3,6 +3,7 @@ package com.simonecampisi.spotifyFormazione.model;
 import com.simonecampisi.spotifyFormazione.model.enums.GenereMusicale;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = "elencoBrani")
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,7 +13,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = "elencoAlbum")
-
 public class Artista {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
