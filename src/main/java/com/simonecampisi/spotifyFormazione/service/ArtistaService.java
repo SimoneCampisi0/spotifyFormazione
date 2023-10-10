@@ -27,6 +27,10 @@ public class ArtistaService extends GenericService<Artista, Long> {
         return helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
     }
 
+    public ArtistaResponse readArtista(Long idArtista) {
+        return helper.buildResponse(super.read(idArtista));
+    }
+
     public ArtistaResponse modificaArtista(ModificaArtistaRequest request) {
         return helper.buildResponse(super.update(helper.updateArtistaFromRequest(super.read(request.getIdArtista()), request)));
     }

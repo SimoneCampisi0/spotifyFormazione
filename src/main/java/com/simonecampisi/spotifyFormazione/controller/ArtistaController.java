@@ -33,7 +33,7 @@ public class ArtistaController extends AbstractController<Artista, Long> {
     @GetMapping()
     @Operation(summary = "Dettaglio artista.")
     public ResponseEntity<?> dettaglioArtista(@RequestParam Long idArtista) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.read(idArtista));
+        return ResponseEntity.status(HttpStatus.OK).body(((ArtistaService)service).readArtista(idArtista));
     }
 
     @GetMapping("/lista-artisti")

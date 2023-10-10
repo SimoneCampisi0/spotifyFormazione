@@ -28,8 +28,18 @@ public class AlbumController extends AbstractController<Album, Long> {
     @Operation(summary = "Lista di tutti gli album")
     public ResponseEntity<?> listAlbum (@RequestParam(defaultValue = "0") Integer pageNumber,
                                         @RequestParam(defaultValue = "10") Integer pageSize,
-                                        @RequestParam(defaultValue = "nome") String sortBy,
+                                        @RequestParam(defaultValue = "titolo") String sortBy,
                                         @RequestParam(defaultValue = "ASC") SortingOrder sortingOrder) {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).listAlbum(pageNumber, pageSize, sortBy, sortingOrder));
+    }
+
+    @GetMapping("/lista-album-da-artista")
+    @Operation(summary = "Lista di tutti gli album da idArtista")
+    public ResponseEntity<?> listAlbum (@RequestParam(defaultValue = "0") Integer pageNumber,
+                                        @RequestParam(defaultValue = "10") Integer pageSize,
+                                        @RequestParam(defaultValue = "titolo") String sortBy,
+                                        @RequestParam(defaultValue = "ASC") SortingOrder sortingOrder,
+                                        @RequestParam Long idArtista) {
+        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).listAlbumPerArtista(pageNumber, pageSize, sortBy, sortingOrder, idArtista));
     }
 }

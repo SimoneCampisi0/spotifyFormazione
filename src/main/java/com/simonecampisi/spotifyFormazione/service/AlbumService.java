@@ -34,9 +34,25 @@ public class AlbumService extends GenericService<Album, Long> {
             pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         }
 
+
         return ((AlbumRepository)repository).findAll(pageable)
                 .stream()
                 .map(album -> helper.buildResponse(album))
                 .collect(Collectors.toList());
     }
+
+    public List<AlbumResponse> listAlbumPerArtista(Integer pageNumber, Integer pageSize, String sortBy, SortingOrder sortingOrder, Long idArtista) {
+        Pageable pageable;
+        if (sortingOrder.equals(SortingOrder.ASC)) {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
+        } else {
+            pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
+        }
+
+        return ((AlbumRepository)repository).findAllByArtista_Id(pageable, idArtista)
+                .stream()
+                .map(album -> helper.buildResponse(album))
+                .collect(Collectors.toList());
+    }
+
 }
