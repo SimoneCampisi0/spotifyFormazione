@@ -4,12 +4,16 @@ import com.simonecampisi.spotifyFormazione.dto.request.abstraction.AbstractAlbum
 import com.simonecampisi.spotifyFormazione.dto.response.album.AlbumResponse;
 import com.simonecampisi.spotifyFormazione.model.Album;
 import com.simonecampisi.spotifyFormazione.model.Artista;
+import com.simonecampisi.spotifyFormazione.model.Brano;
 import com.simonecampisi.spotifyFormazione.repository.ArtistaRepository;
 import com.simonecampisi.spotifyFormazione.service.helper.abstraction.IHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.util.Base64;
+import java.util.Set;
+import java.util.function.Consumer;
 
 @Component
 public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
@@ -36,6 +40,16 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
         );
     }
 
+    public String sumDuration(Set<Brano> elencoBrani) {
+        Duration duration = Duration.ofMinutes(0);
+        if(elencoBrani != null) {
+            elencoBrani
+                    .forEach(b -> {
+                        duration.plus(b.getDurata());
+                    });
+        }
+        return duration.toMinutes() + ":" + duration.getSeconds() % 60;
+    }
     @Override
     public Album buildEntityFromRequest(AbstractAlbumRequest request) {
         Album album = new Album();
@@ -60,8 +74,10 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
                 .titolo(album.getTitolo())
                 .genereMusicale(album.getGenereMusicale())
                 .artistaResponse(artistaHelper.buildResponse(album.getArtista()))
-
+                .numTracks(album.getElencoBrani() == null ? 0 : album.getElencoBrani().size())
+                .totalDuration(sumDuration(album.getElencoBrani()))
                 .build();
+
     }
 
 }

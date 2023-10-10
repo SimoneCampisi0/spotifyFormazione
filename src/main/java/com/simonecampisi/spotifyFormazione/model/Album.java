@@ -6,9 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -31,7 +28,7 @@ public class Album {
     @ManyToOne
     @JoinColumn(name = "artista_id")
     private Artista artista;
-//
-//    @OneToMany
-//    private Set<Brano> elencoBrani;
+
+    @OneToMany(mappedBy = "album")
+    private Set<Brano> elencoBrani;
 }

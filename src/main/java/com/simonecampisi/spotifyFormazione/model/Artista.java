@@ -6,8 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -28,6 +26,5 @@ public class Artista {
     private byte [] imgProfilo;
 
     @OneToMany(mappedBy = "artista", cascade = CascadeType.REMOVE, orphanRemoval = true)
-//    @OneToMany(mappedBy = "album")
     private Set<Album> elencoAlbum;
 }

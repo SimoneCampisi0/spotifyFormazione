@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.time.Duration;
 import java.util.Set;
 
@@ -25,4 +22,8 @@ public class Brano {
 
     @ManyToMany
     private Set<Playlist> elencoPlaylist;
+
+    @ManyToOne
+    @JoinColumn(name = "idAlbum", nullable = false)
+    private Album album;
 }
