@@ -7,11 +7,11 @@ import com.simonecampisi.spotifyFormazione.model.Artista;
 import com.simonecampisi.spotifyFormazione.model.Brano;
 import com.simonecampisi.spotifyFormazione.repository.ArtistaRepository;
 import com.simonecampisi.spotifyFormazione.service.helper.abstraction.IHelper;
+import com.simonecampisi.spotifyFormazione.utils.ImageManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
-import java.util.Base64;
 import java.util.Set;
 
 @Component
@@ -22,16 +22,18 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
     @Autowired
     private ArtistaHelper artistaHelper;
 
+    @Autowired
+    private ImageManager imageManager;
 
-    public byte [] base64ToImg(String base64) {
-        byte [] img = null;
-        try {
-            img = Base64.getDecoder().decode(base64);
-        } catch (Exception e) {
-            System.out.println("Error: "+e);
-        }
-        return img;
-    }
+//    public byte [] base64ToImg(String base64) {
+//        byte [] img = null;
+//        try {
+//            img = Base64.getDecoder().decode(base64);
+//        } catch (Exception e) {
+//            System.out.println("Error: "+e);
+//        }
+//        return img;
+//    }
 
     public Artista readArtista(Long idArtista) {
         return artistaRepository.findById(idArtista).orElseThrow(
@@ -61,7 +63,7 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
         if(request.getCover().isEmpty()) {
             album.setCover(null);
         } else {
-            album.setCover(base64ToImg(request.getCover()));
+            album.setCover(imageManager.base64ToImg(request.getCover()));
         }
 
         return album;

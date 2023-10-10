@@ -16,5 +16,6 @@ public abstract class AbstractUtenteRequest implements IRequest {
     @Email
     private String email;
 
-    private byte [] imgProfilo;
+    @NotBlank(message = "Immagine del profilo obbligatoria.")
+    private String imgProfilo;
 }
