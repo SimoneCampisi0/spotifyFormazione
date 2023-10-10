@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 import java.util.Base64;
 import java.util.Set;
-import java.util.function.Consumer;
 
 @Component
 public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
@@ -42,11 +41,11 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
 
     public String sumDuration(Set<Brano> elencoBrani) {
         Duration duration = Duration.ofMinutes(0);
+
         if(elencoBrani != null) {
-            elencoBrani
-                    .forEach(b -> {
-                        duration.plus(b.getDurata());
-                    });
+            duration = elencoBrani.stream()
+                    .map(b -> b.getDurata())
+                    .reduce(duration, Duration::plus);
         }
         return duration.toMinutes() + ":" + duration.getSeconds() % 60;
     }
