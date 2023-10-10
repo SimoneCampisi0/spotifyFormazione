@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.Duration;
 import java.util.Set;
 
 @Data
@@ -17,8 +16,10 @@ public class Playlist {
 
     private String nome;
 
-    @ManyToMany
-    @JoinTable(
-            name = "brani_playlist")
+    @ManyToOne
+    @JoinColumn(name = "utente_id")
+    private Utente utente;
+
+    @ManyToMany(mappedBy = "elencoPlaylist")
     private Set<Brano> elencoBrani;
 }

@@ -23,10 +23,14 @@ public class Brano {
 
     private Duration durata;
 
-    @ManyToMany
-    private Set<Playlist> elencoPlaylist;
-
     @ManyToOne
     @JoinColumn(name = "idAlbum", nullable = false)
     private Album album;
+
+    @ManyToMany
+    @JoinTable(
+            name = "brani_playlist",
+            joinColumns = @JoinColumn(name = "brano_id"),
+            inverseJoinColumns = @JoinColumn(name = "playlist_id"))
+    private Set<Playlist> elencoPlaylist;
 }
