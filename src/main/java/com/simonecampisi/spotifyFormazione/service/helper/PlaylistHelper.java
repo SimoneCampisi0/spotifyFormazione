@@ -5,7 +5,6 @@ import com.simonecampisi.spotifyFormazione.dto.request.playlist.ModificaPlaylist
 import com.simonecampisi.spotifyFormazione.dto.response.playlist.PlaylistResponse;
 import com.simonecampisi.spotifyFormazione.model.Playlist;
 import com.simonecampisi.spotifyFormazione.repository.UtenteRepository;
-import com.simonecampisi.spotifyFormazione.service.UtenteService;
 import com.simonecampisi.spotifyFormazione.service.helper.abstraction.IHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

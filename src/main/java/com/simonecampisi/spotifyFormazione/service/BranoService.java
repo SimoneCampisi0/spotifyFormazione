@@ -3,7 +3,6 @@ package com.simonecampisi.spotifyFormazione.service;
 import com.simonecampisi.spotifyFormazione.dto.request.brano.CreateBranoRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.brano.ModificaBranoRequest;
 import com.simonecampisi.spotifyFormazione.dto.response.brano.BranoResponse;
-import com.simonecampisi.spotifyFormazione.model.Album;
 import com.simonecampisi.spotifyFormazione.model.Brano;
 import com.simonecampisi.spotifyFormazione.repository.BranoRepository;
 import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
