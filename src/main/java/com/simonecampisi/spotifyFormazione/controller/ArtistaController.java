@@ -47,10 +47,10 @@ public class ArtistaController extends AbstractController<Artista, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((ArtistaService)service).findAllPage(pageNumber, pageSize, sortBy, sortingOrder));
     }
 
-//    @DeleteMapping
-//    @Operation(summary = "Elimina un artista")
-//    public ResponseEntity<?> eliminaArtista(@RequestParam Long idArtista) {
-//
-//        return ResponseEntity.ok(HttpStatus.OK);
-//    }
+    @DeleteMapping
+    @Operation(summary = "Elimina un artista")
+    public ResponseEntity<?> eliminaArtista(@RequestParam Long idArtista) throws Exception {
+        ((ArtistaService)service).deleteArtista(idArtista);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
 }

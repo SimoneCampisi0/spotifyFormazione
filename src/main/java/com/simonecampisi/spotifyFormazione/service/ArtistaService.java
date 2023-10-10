@@ -5,6 +5,7 @@ import com.simonecampisi.spotifyFormazione.dto.request.artista.ModificaArtistaRe
 import com.simonecampisi.spotifyFormazione.dto.response.artista.ArtistaResponse;
 import com.simonecampisi.spotifyFormazione.model.Artista;
 import com.simonecampisi.spotifyFormazione.model.enums.SortingOrder;
+import com.simonecampisi.spotifyFormazione.repository.AlbumRepository;
 import com.simonecampisi.spotifyFormazione.repository.ArtistaRepository;
 import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
 import com.simonecampisi.spotifyFormazione.service.helper.ArtistaHelper;
@@ -20,6 +21,9 @@ public class ArtistaService extends GenericService<Artista, Long> {
 
     @Autowired
     private ArtistaHelper helper;
+
+    @Autowired
+    private AlbumService albumService;
 
     public ArtistaResponse createArtista(CreateArtistaRequest request) {
         return helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
@@ -47,6 +51,9 @@ public class ArtistaService extends GenericService<Artista, Long> {
                 .collect(Collectors.toList());
 
         return new PageImpl<ArtistaResponse>(artistaResponseList, pageable,  repository.findAll().size());
+    }
 
+    public void deleteArtista(Long idArtista) throws Exception {
+        repository.deleteById(idArtista);
     }
 }

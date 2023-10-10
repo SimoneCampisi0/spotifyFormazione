@@ -9,6 +9,7 @@ import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
 import com.simonecampisi.spotifyFormazione.service.helper.AlbumHelper;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +57,6 @@ public class AlbumService extends GenericService<Album, Long> {
                 .collect(Collectors.toList());
 
         return new PageImpl<AlbumResponse>(albumResponseList, pageable,  ((AlbumRepository)repository).findAllByArtista_Id(idArtista).size());
-
     }
 
 }
