@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Data
@@ -17,10 +15,8 @@ public class Utente {
     @Id
     private Long idUtente;
 
-    @NotBlank(message = "Nome utente obbligatorio.")
     private String nomeUtente;
 
-    @Email
     private String email;
 
     @Lob
