@@ -1,18 +1,18 @@
 package com.simonecampisi.spotifyFormazione.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Utente {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUtente;
 
     private String nomeUtente;
