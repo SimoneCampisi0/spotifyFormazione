@@ -8,9 +8,7 @@ import com.simonecampisi.spotifyFormazione.repository.AlbumRepository;
 import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
 import com.simonecampisi.spotifyFormazione.service.helper.AlbumHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +24,7 @@ public class AlbumService extends GenericService<Album, Long> {
         return helper.buildResponse(album);
     }
 
-    public List<AlbumResponse> listAlbum(Integer pageNumber, Integer pageSize, String sortBy, SortingOrder sortingOrder) {
+    public Page<AlbumResponse> listAlbum(Integer pageNumber, Integer pageSize, String sortBy, SortingOrder sortingOrder) {
         Pageable pageable;
         if (sortingOrder.equals(SortingOrder.ASC)) {
             pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
@@ -34,14 +32,15 @@ public class AlbumService extends GenericService<Album, Long> {
             pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         }
 
-
-        return ((AlbumRepository)repository).findAll(pageable)
+        List<AlbumResponse> listAlbumResponse = ((AlbumRepository)repository).findAll(pageable)
                 .stream()
                 .map(album -> helper.buildResponse(album))
                 .collect(Collectors.toList());
+
+        return new PageImpl<AlbumResponse>(listAlbumResponse, pageable,  ((AlbumRepository)repository).findAll().size());
     }
 
-    public List<AlbumResponse> listAlbumPerArtista(Integer pageNumber, Integer pageSize, String sortBy, SortingOrder sortingOrder, Long idArtista) {
+    public Page<AlbumResponse> listAlbumPerArtista(Integer pageNumber, Integer pageSize, String sortBy, SortingOrder sortingOrder, Long idArtista) {
         Pageable pageable;
         if (sortingOrder.equals(SortingOrder.ASC)) {
             pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).ascending());
@@ -49,10 +48,13 @@ public class AlbumService extends GenericService<Album, Long> {
             pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy).descending());
         }
 
-        return ((AlbumRepository)repository).findAllByArtista_Id(pageable, idArtista)
+        List<AlbumResponse> albumResponseList = ((AlbumRepository)repository).findAllByArtista_Id(pageable, idArtista)
                 .stream()
                 .map(album -> helper.buildResponse(album))
                 .collect(Collectors.toList());
+
+        return new PageImpl<AlbumResponse>(albumResponseList, pageable,  ((AlbumRepository)repository).findAllByArtista_Id(idArtista).size());
+
     }
 
 }
