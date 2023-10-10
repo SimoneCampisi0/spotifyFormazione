@@ -26,6 +26,10 @@ public class UtenteService extends GenericService<Utente, Long> {
         return helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
     }
 
+    public UtenteResponse readUtente(Long idUtente) {
+        return helper.buildResponse(super.read(idUtente));
+    }
+
     public UtenteResponse modificaUtente(ModificaUtenteRequest request) {
         Utente utente = helper.buildEntityForUpdate(request, super.read(request.getIdUtente()));
         return helper.buildResponse(super.update(utente));

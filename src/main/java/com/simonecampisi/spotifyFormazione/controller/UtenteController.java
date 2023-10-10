@@ -29,6 +29,12 @@ public class UtenteController extends AbstractController<Utente, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).modificaUtente(request));
     }
 
+    @GetMapping
+    @Operation(summary = "Dettaglio di un utente")
+    public ResponseEntity<?> dettaglioUtente(@RequestParam Long idUtente) {
+        return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).readUtente(idUtente));
+    }
+
     @GetMapping("/lista-utenti")
     @Operation(summary = "Lista utenti.")
     public ResponseEntity<?> listaUtenti(
