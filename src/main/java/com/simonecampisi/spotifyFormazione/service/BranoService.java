@@ -32,11 +32,17 @@ public class BranoService extends GenericService<Brano, Long> {
                 .stream()
                 .map(brano -> helper.buildResponse(brano))
                 .collect(Collectors.toList());
-
     }
 
+    public List<BranoResponse> listaBraniPerPlaylist() {
+        return super.findAll().stream()
+                .map(brano -> helper.buildResponse(brano))
+                .collect(Collectors.toList());
+    }
+
+
+
     public BranoResponse modificaBrano(ModificaBranoRequest request) {
-//        Brano brano = ; //Non riesce a eseguire l'update. Problema dipendenza ciclica
         return helper.buildResponse(super.update(helper.buildBranoUpdate(request, albumService.read(request.getIdAlbum()))));
     }
 

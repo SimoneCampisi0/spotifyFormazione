@@ -1,6 +1,7 @@
 package com.simonecampisi.spotifyFormazione.controller;
 
 import com.simonecampisi.spotifyFormazione.controller.abstraction.AbstractController;
+import com.simonecampisi.spotifyFormazione.dto.request.playlist.AddBranoPlaylistRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.playlist.CreatePlaylistRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.playlist.ModificaPlaylistRequest;
 import com.simonecampisi.spotifyFormazione.model.Playlist;
@@ -26,5 +27,12 @@ public class PlaylistController extends AbstractController<Playlist, Long> {
     @Operation(summary = "Modifica una playlist")
     public ResponseEntity<?> modificaPlaylist(@Valid @RequestBody ModificaPlaylistRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).editPlaylist(request));
+    }
+
+    @PostMapping("/aggiungi-brano-playlist")
+    @Operation(summary = "Aggiungi un brano in una playlist")
+    public ResponseEntity<?> aggiungiBrano(@Valid @RequestBody AddBranoPlaylistRequest request) {
+        ((PlaylistService)service).addBranoToPlaylist(request);
+        return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
 }

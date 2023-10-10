@@ -4,6 +4,7 @@ import com.simonecampisi.spotifyFormazione.dto.request.abstraction.AbstractPlayl
 import com.simonecampisi.spotifyFormazione.dto.request.playlist.ModificaPlaylistRequest;
 import com.simonecampisi.spotifyFormazione.dto.response.playlist.PlaylistResponse;
 import com.simonecampisi.spotifyFormazione.model.Playlist;
+import com.simonecampisi.spotifyFormazione.repository.UtenteRepository;
 import com.simonecampisi.spotifyFormazione.service.UtenteService;
 import com.simonecampisi.spotifyFormazione.service.helper.abstraction.IHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +14,23 @@ import org.springframework.stereotype.Component;
 public class PlaylistHelper implements IHelper<Playlist, AbstractPlaylistRequest> {
 
     @Autowired
-    private UtenteService utenteService;
+    private UtenteRepository utenteRepository;
 
     @Override
     public Playlist buildEntityFromRequest(AbstractPlaylistRequest request) {
         return Playlist.builder()
                 .nome(request.getNome())
-                .utente(utenteService.read(request.getIdUtente()))
+                .utente(utenteRepository.findById(request.getIdUtente()).orElseThrow(
+                        () -> new RuntimeException("Elemento con ID "+request.getIdUtente()+ " non trovato."))
+                )
                 .build();
     }
 
     public Playlist buildEntityForUpdate(ModificaPlaylistRequest request, Playlist playlist) {
         playlist.setNome(request.getNome());
-        playlist.setUtente(utenteService.read(request.getIdUtente()));
+        playlist.setUtente(utenteRepository.findById(request.getIdUtente()).orElseThrow(
+                () -> new RuntimeException("Elemento con ID "+request.getIdUtente()+ " non trovato."))
+        );
         return playlist;
     }
 

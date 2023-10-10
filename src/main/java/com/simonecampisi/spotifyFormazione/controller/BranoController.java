@@ -28,6 +28,12 @@ public class BranoController extends AbstractController<Brano, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBrani(idAlbum));
     }
 
+    @GetMapping("/lista-selezione-brani")
+    @Operation(summary = "Lista di tutti i brani l'inserimento in playlist.")
+    public ResponseEntity<?> listaBraniPerPlaylist () {
+        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBraniPerPlaylist());
+    }
+
     @PutMapping
     @Operation(summary = "Modifica brano")
     public ResponseEntity<?> modificaBrano (@Valid @RequestBody ModificaBranoRequest request) {
