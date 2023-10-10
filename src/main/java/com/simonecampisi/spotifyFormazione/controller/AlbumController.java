@@ -13,23 +13,23 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("gestione-album")
+@RequestMapping("albums")
 //@CrossOrigin("http://localhost:4200/")
 public class AlbumController extends AbstractController<Album, Long> {
 
-    @PostMapping
+    @PostMapping("/new")
     @Operation(summary = "Aggiungi album")
     public ResponseEntity<?> aggiungiAlbum (@Valid @RequestBody CreateAlbumRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).addAlbum(request));
     }
 
-    @GetMapping()
+    @GetMapping("/dettaglio")
     @Operation(summary = "Dettaglio di un album")
     public ResponseEntity<?> dettaglioAlbum (@RequestParam Long idAlbum) {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).readAlbum(idAlbum));
     }
 
-    @GetMapping("/lista-album")
+    @GetMapping("")
     @Operation(summary = "Lista di tutti gli album")
     public ResponseEntity<?> listAlbum (@RequestParam(defaultValue = "0") Integer pageNumber,
                                         @RequestParam(defaultValue = "10") Integer pageSize,

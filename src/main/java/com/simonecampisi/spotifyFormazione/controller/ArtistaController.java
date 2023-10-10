@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("gestione-artisti")
+@RequestMapping("artists")
 //@CrossOrigin("http://localhost:4200/")
 public class ArtistaController extends AbstractController<Artista, Long> {
 
-    @PostMapping()
+    @PostMapping("/new")
     @Operation(summary  = "Crea un artista.")
     public ResponseEntity<?> createArtista(@Valid @RequestBody CreateArtistaRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((ArtistaService)service).createArtista(request));

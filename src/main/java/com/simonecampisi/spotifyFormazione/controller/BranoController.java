@@ -34,5 +34,12 @@ public class BranoController extends AbstractController<Brano, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).modificaBrano(request));
     }
 
+//    @DeleteMapping Si può cancellare un brano soltanto se non è presente in una playlist
+//    @Operation(summary = "Elimina brano")
+//    public ResponseEntity<?> eliminaBrano (@RequestParam Long idBrano) {
+//        ((BranoService)service).deleteBrano(idBrano);
+//        return ResponseEntity.status(HttpStatus.OK).body("OK");
+//    }
+
 
 }
