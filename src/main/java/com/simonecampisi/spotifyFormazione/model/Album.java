@@ -34,6 +34,6 @@ public class Album {
     @EqualsAndHashCode.Exclude
     private Artista artista;
 
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Brano> elencoBrani = new HashSet<>();
 }

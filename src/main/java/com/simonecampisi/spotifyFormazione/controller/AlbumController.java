@@ -48,4 +48,11 @@ public class AlbumController extends AbstractController<Album, Long> {
                                         @RequestParam Long idArtista) {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).listAlbumPerArtista(pageNumber, pageSize, sortBy, sortingOrder, idArtista));
     }
+
+    @DeleteMapping("/elimina-album")
+    @Operation(summary = "Eliminazione di un album")
+    public ResponseEntity<?> eliminaAlbum (@RequestParam Long idAlbum) {
+        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).deleteAlbum(idAlbum));
+    }
+
 }
