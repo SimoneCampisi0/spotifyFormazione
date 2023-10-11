@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class AddBranoPlaylistRequest {
+public class ManageBranoPlaylistRequest {
     @NotNull(message = "ID playlist obbligatorio")
     private Long idPlaylist;
 

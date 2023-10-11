@@ -1,7 +1,7 @@
 package com.simonecampisi.spotifyFormazione.controller;
 
 import com.simonecampisi.spotifyFormazione.controller.abstraction.AbstractController;
-import com.simonecampisi.spotifyFormazione.dto.request.playlist.AddBranoPlaylistRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.playlist.ManageBranoPlaylistRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.playlist.CreatePlaylistRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.playlist.ModificaPlaylistRequest;
 import com.simonecampisi.spotifyFormazione.model.Playlist;
@@ -31,8 +31,14 @@ public class PlaylistController extends AbstractController<Playlist, Long> {
 
     @PostMapping("/aggiungi-brano-playlist")
     @Operation(summary = "Aggiungi un brano in una playlist")
-    public ResponseEntity<?> aggiungiBrano(@Valid @RequestBody AddBranoPlaylistRequest request) {
+    public ResponseEntity<?> aggiungiBranoPlaylist(@Valid @RequestBody ManageBranoPlaylistRequest request) {
         return ((PlaylistService)service).addBranoToPlaylist(request);
+    }
+
+    @PostMapping("/rimuovi-brano-playlist")
+    @Operation(summary = "Rimuovi un brano da una playlist")
+    public ResponseEntity<?> rimuoviBranoPlaylist(@Valid @RequestBody ManageBranoPlaylistRequest request) {
+        return ((PlaylistService)service).deleteBranoFromPlaylist(request);
     }
 
     @GetMapping("/lista-playlist-utente")

@@ -1,6 +1,6 @@
 package com.simonecampisi.spotifyFormazione.service;
 
-import com.simonecampisi.spotifyFormazione.dto.request.playlist.AddBranoPlaylistRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.playlist.ManageBranoPlaylistRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.playlist.CreatePlaylistRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.playlist.ModificaPlaylistRequest;
 import com.simonecampisi.spotifyFormazione.dto.response.playlist.PlaylistResponse;
@@ -41,13 +41,26 @@ public class PlaylistService extends GenericService<Playlist, Long> {
         return helper.buildResponse(super.update(playlist));
     }
 
-    public ResponseEntity<?> addBranoToPlaylist(AddBranoPlaylistRequest request) {
+    public ResponseEntity<?> addBranoToPlaylist(ManageBranoPlaylistRequest request) {
         Brano brano = branoService.read(request.getIdBrano());
         Playlist playlist = super.read(request.getIdPlaylist());
 
         if(!playlist.getElencoBrani().contains(brano)) {
             brano.getElencoPlaylist().add(playlist);
             playlist.getElencoBrani().add(brano);
+            super.update(playlist);
+            return ResponseEntity.ok(HttpStatus.OK);
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    public ResponseEntity<?> deleteBranoFromPlaylist(ManageBranoPlaylistRequest request) {
+        Brano brano = branoService.read(request.getIdBrano());
+        Playlist playlist = super.read(request.getIdPlaylist());
+
+        if(playlist.getElencoBrani().contains(brano)) {
+            brano.getElencoPlaylist().remove(playlist);
+            playlist.getElencoBrani().remove(brano);
             super.update(playlist);
             return ResponseEntity.ok(HttpStatus.OK);
         }
