@@ -1,9 +1,6 @@
 package com.simonecampisi.spotifyFormazione.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.Duration;
@@ -26,6 +23,8 @@ public class Brano {
 
     @ManyToOne
     @JoinColumn(name = "idAlbum", nullable = false)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Album album;
 
     @ManyToMany
@@ -33,5 +32,7 @@ public class Brano {
             name = "brani_playlist",
             joinColumns = @JoinColumn(name = "brano_id"),
             inverseJoinColumns = @JoinColumn(name = "playlist_id"))
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Playlist> elencoPlaylist = new HashSet<>();
 }

@@ -1,10 +1,7 @@
 package com.simonecampisi.spotifyFormazione.model;
 
 import com.simonecampisi.spotifyFormazione.model.enums.GenereMusicale;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,7 +12,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "elencoBrani")
+//@EqualsAndHashCode(exclude = "elencoBrani")
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +30,8 @@ public class Album {
 
     @ManyToOne
     @JoinColumn(name = "artista_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Artista artista;
 
     @OneToMany(mappedBy = "album")

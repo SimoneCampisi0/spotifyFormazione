@@ -11,7 +11,6 @@ import com.simonecampisi.spotifyFormazione.service.helper.PlaylistHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
 
 @Service
 public class PlaylistService extends GenericService<Playlist, Long> {
@@ -30,16 +29,13 @@ public class PlaylistService extends GenericService<Playlist, Long> {
         return helper.buildResponse(super.update(playlist));
     }
 
-//    public void addBranoToPlaylist(AddBranoPlaylistRequest request) { //TODO: fix update.
-//        Playlist playlist = super.read(request.getIdPlaylist());
-//        Set<Brano> braniSet = playlist.getElencoBrani();
-//
-//        Brano brano = branoService.read(request.getIdBrano());
-//        braniSet.add(brano);
-//
-//        playlist.setElencoBrani(braniSet);
-//
-//
-//        super.update(playlist);
-//    }
+    public void addBranoToPlaylist(AddBranoPlaylistRequest request) {
+        Brano brano = branoService.read(request.getIdBrano());
+        Playlist playlist = super.read(request.getIdPlaylist());
+
+        brano.getElencoPlaylist().add(playlist);
+        playlist.getElencoBrani().add(brano);
+
+        super.update(playlist);
+    }
 }

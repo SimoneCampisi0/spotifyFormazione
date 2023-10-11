@@ -1,8 +1,5 @@
 package com.simonecampisi.spotifyFormazione.model;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -21,8 +18,12 @@ public class Playlist {
 
     @ManyToOne
     @JoinColumn(name = "utente_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Utente utente;
 
     @ManyToMany(mappedBy = "elencoPlaylist")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Brano> elencoBrani;
 }
