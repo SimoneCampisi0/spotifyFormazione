@@ -11,9 +11,13 @@ import com.simonecampisi.spotifyFormazione.repository.PlaylistRepository;
 import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
 import com.simonecampisi.spotifyFormazione.service.helper.PlaylistHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -33,18 +37,28 @@ public class PlaylistService extends GenericService<Playlist, Long> {
         return helper.buildResponse(super.update(playlist));
     }
 
-    public void addBranoToPlaylist(AddBranoPlaylistRequest request) {
+    public ResponseEntity<?> addBranoToPlaylist(AddBranoPlaylistRequest request) {
         Brano brano = branoService.read(request.getIdBrano());
         Playlist playlist = super.read(request.getIdPlaylist());
 
-        brano.getElencoPlaylist().add(playlist);
-        playlist.getElencoBrani().add(brano);
-
-        super.update(playlist);
+        if(!playlist.getElencoBrani().contains(brano)) {
+            brano.getElencoPlaylist().add(playlist);
+            playlist.getElencoBrani().add(brano);
+            super.update(playlist);
+            return ResponseEntity.ok(HttpStatus.OK);
+        }
+        return ResponseEntity.badRequest().build();
     }
 
     @Transactional
     public void deletePlaylistByUtente(Utente utente) { //TODO Bisogna poter eliminare le playlist senza intaccare i brani a esse collegate.
         ((PlaylistRepository)repository).deleteAllByUtente(utente);
+    }
+
+    public List<PlaylistResponse> listaPlaylist(Long idUtente) {
+        return ((PlaylistRepository)repository).findAllByUtenteIdUtente(idUtente)
+                .stream()
+                .map(playlist -> helper.buildResponse(playlist))
+                .collect(Collectors.toList());
     }
 }

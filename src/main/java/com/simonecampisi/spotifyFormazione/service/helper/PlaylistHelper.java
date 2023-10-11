@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PlaylistHelper implements IHelper<Playlist, AbstractPlaylistRequest> {
-
     @Autowired
     private UtenteRepository utenteRepository;
 
@@ -19,6 +18,7 @@ public class PlaylistHelper implements IHelper<Playlist, AbstractPlaylistRequest
     public Playlist buildEntityFromRequest(AbstractPlaylistRequest request) {
         return Playlist.builder()
                 .nome(request.getNome())
+                .dataCreazione(request.getDataCreazione())
                 .utente(utenteRepository.findById(request.getIdUtente()).orElseThrow(
                         () -> new RuntimeException("Elemento con ID "+request.getIdUtente()+ " non trovato."))
                 )
@@ -37,6 +37,7 @@ public class PlaylistHelper implements IHelper<Playlist, AbstractPlaylistRequest
         return PlaylistResponse.builder()
                 .idPlaylist(playlist.getIdPlaylist())
                 .nome(playlist.getNome())
+                .dataCreazione(playlist.getDataCreazione())
                 .build();
     }
 }

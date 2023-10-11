@@ -32,7 +32,13 @@ public class PlaylistController extends AbstractController<Playlist, Long> {
     @PostMapping("/aggiungi-brano-playlist")
     @Operation(summary = "Aggiungi un brano in una playlist")
     public ResponseEntity<?> aggiungiBrano(@Valid @RequestBody AddBranoPlaylistRequest request) {
-        ((PlaylistService)service).addBranoToPlaylist(request);
-        return ResponseEntity.status(HttpStatus.OK).body("OK");
+        return ((PlaylistService)service).addBranoToPlaylist(request);
     }
+
+    @GetMapping
+    @Operation(summary = "Lista delle playlist create da un utente")
+    public ResponseEntity<?> listaPlaylist(@RequestParam Long idUtente) {
+        return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).listaPlaylist(idUtente));
+    }
+
 }
