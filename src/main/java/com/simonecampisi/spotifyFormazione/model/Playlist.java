@@ -2,6 +2,7 @@ package com.simonecampisi.spotifyFormazione.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -22,8 +23,17 @@ public class Playlist {
     @EqualsAndHashCode.Exclude
     private Utente utente;
 
-    @ManyToMany(mappedBy = "elencoPlaylist")
+//    @ManyToMany(mappedBy = "elencoPlaylist")
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
+//    private Set<Brano> elencoBrani;
+
+    @ManyToMany
+    @JoinTable(
+            name = "playlist_brani",
+            joinColumns = @JoinColumn(name = "playlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "brano_id"))
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Set<Brano> elencoBrani;
+    private Set<Brano> elencoBrani = new HashSet<>();
 }
