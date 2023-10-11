@@ -1,6 +1,7 @@
 package com.simonecampisi.spotifyFormazione.service.helper;
 
 import com.simonecampisi.spotifyFormazione.dto.request.abstraction.AbstractAlbumRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.album.ModificaAlbumRequest;
 import com.simonecampisi.spotifyFormazione.dto.response.album.AlbumResponse;
 import com.simonecampisi.spotifyFormazione.model.Album;
 import com.simonecampisi.spotifyFormazione.model.Artista;
@@ -25,15 +26,14 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
     @Autowired
     private ImageManager imageManager;
 
-//    public byte [] base64ToImg(String base64) {
-//        byte [] img = null;
-//        try {
-//            img = Base64.getDecoder().decode(base64);
-//        } catch (Exception e) {
-//            System.out.println("Error: "+e);
-//        }
-//        return img;
-//    }
+    public Album editAlbum(ModificaAlbumRequest request, Album album) {
+        album.setCover(imageManager.base64ToImg(request.getCover()));
+        album.setTitolo(request.getTitolo());
+        album.setGenereMusicale(request.getGenereMusicale());
+        album.setDataUscita(request.getDataUscita());
+        album.setArtista(readArtista(request.getIdArtista()));
+        return album;
+    }
 
     public Artista readArtista(Long idArtista) {
         return artistaRepository.findById(idArtista).orElseThrow(

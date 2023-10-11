@@ -1,6 +1,7 @@
 package com.simonecampisi.spotifyFormazione.service;
 
 import com.simonecampisi.spotifyFormazione.dto.request.album.CreateAlbumRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.album.ModificaAlbumRequest;
 import com.simonecampisi.spotifyFormazione.dto.response.album.AlbumResponse;
 import com.simonecampisi.spotifyFormazione.model.Album;
 import com.simonecampisi.spotifyFormazione.model.Brano;
@@ -25,6 +26,10 @@ public class AlbumService extends GenericService<Album, Long> {
 
     public AlbumResponse addAlbum(CreateAlbumRequest request) {
         return helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
+    }
+
+    public AlbumResponse modificaAlbum(ModificaAlbumRequest request) {
+        return helper.buildResponse(super.update(helper.editAlbum(request,super.read(request.getIdAlbum()))));
     }
 
     public AlbumResponse readAlbum(Long idAlbum) {

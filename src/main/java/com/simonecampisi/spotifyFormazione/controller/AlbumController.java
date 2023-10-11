@@ -2,6 +2,7 @@ package com.simonecampisi.spotifyFormazione.controller;
 
 import com.simonecampisi.spotifyFormazione.controller.abstraction.AbstractController;
 import com.simonecampisi.spotifyFormazione.dto.request.album.CreateAlbumRequest;
+import com.simonecampisi.spotifyFormazione.dto.request.album.ModificaAlbumRequest;
 import com.simonecampisi.spotifyFormazione.model.Album;
 import com.simonecampisi.spotifyFormazione.model.enums.SortingOrder;
 import com.simonecampisi.spotifyFormazione.service.AlbumService;
@@ -21,6 +22,12 @@ public class AlbumController extends AbstractController<Album, Long> {
     @Operation(summary = "Aggiungi album.")
     public ResponseEntity<?> aggiungiAlbum (@Valid @RequestBody CreateAlbumRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).addAlbum(request));
+    }
+
+    @PutMapping()
+    @Operation(summary = "Modifica album.")
+    public ResponseEntity<?> aggiungiAlbum (@Valid @RequestBody ModificaAlbumRequest request) {
+        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).modificaAlbum(request));
     }
 
     @GetMapping("/dettaglio")
