@@ -35,10 +35,16 @@ public class PlaylistController extends AbstractController<Playlist, Long> {
         return ((PlaylistService)service).addBranoToPlaylist(request);
     }
 
-    @GetMapping
+    @GetMapping("/lista-playlist-utente")
     @Operation(summary = "Lista delle playlist create da un utente")
     public ResponseEntity<?> listaPlaylist(@RequestParam Long idUtente) {
         return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).listaPlaylist(idUtente));
+    }
+
+    @GetMapping()
+    @Operation(summary = "Dettaglio di una playlist")
+    public ResponseEntity<?> dettaglioPlaylist(@RequestParam Long idPlaylist) {
+        return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).readPlaylist(idPlaylist));
     }
 
 }

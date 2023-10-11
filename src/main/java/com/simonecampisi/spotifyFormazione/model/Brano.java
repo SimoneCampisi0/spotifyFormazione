@@ -27,15 +27,8 @@ public class Brano {
     @EqualsAndHashCode.Exclude
     private Album album;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "brani_playlist",
-//            joinColumns = @JoinColumn(name = "brano_id"),
-//            inverseJoinColumns = @JoinColumn(name = "playlist_id"))
-//    @ToString.Exclude
-//    @EqualsAndHashCode.Exclude
-//    private Set<Playlist> elencoPlaylist = new HashSet<>();
-
     @ManyToMany(mappedBy = "elencoBrani")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private Set<Playlist> elencoPlaylist = new HashSet<>();
 }

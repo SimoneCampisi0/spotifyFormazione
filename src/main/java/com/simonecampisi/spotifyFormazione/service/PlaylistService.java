@@ -32,6 +32,10 @@ public class PlaylistService extends GenericService<Playlist, Long> {
         return helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
     }
 
+    public PlaylistResponse readPlaylist(Long idPlaylist) {
+        return helper.buildResponse(super.read(idPlaylist));
+    }
+
     public PlaylistResponse editPlaylist(ModificaPlaylistRequest request) {
         Playlist playlist = helper.buildEntityForUpdate(request, super.read(request.getIdPlaylist()));
         return helper.buildResponse(super.update(playlist));

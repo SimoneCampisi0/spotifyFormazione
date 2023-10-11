@@ -22,16 +22,22 @@ public class BranoController extends AbstractController<Brano, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).addBrano(request));
     }
 
-    @GetMapping
+    @GetMapping("/lista-brani-album")
     @Operation(summary = "Lista di tutti i brani per album")
     public ResponseEntity<?> listaBrani (@RequestParam Long idAlbum) {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBrani(idAlbum));
     }
 
+    @GetMapping("/lista-brani-playlist")
+    @Operation(summary = "Lista di tutti i brani per playlist")
+    public ResponseEntity<?> listaBraniPerPlaylist (@RequestParam Long idPlaylist) {
+        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBraniPerPlaylist(idPlaylist));
+    }
+
     @GetMapping("/lista-selezione-brani")
     @Operation(summary = "Lista di tutti i brani l'inserimento in playlist.")
     public ResponseEntity<?> listaBraniPerPlaylist () {
-        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBraniPerPlaylist());
+        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBraniPerInserimento());
     }
 
     @PutMapping
