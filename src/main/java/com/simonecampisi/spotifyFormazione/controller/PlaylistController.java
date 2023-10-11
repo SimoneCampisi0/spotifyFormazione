@@ -18,37 +18,37 @@ import javax.validation.Valid;
 //@CrossOrigin("http://localhost:4200/")
 public class PlaylistController extends AbstractController<Playlist, Long> {
     @PostMapping("/new")
-    @Operation(summary = "Crea una nuova playlist")
+    @Operation(summary = "Crea una nuova playlist.")
     public ResponseEntity<?> pubblicaPlaylist(@Valid @RequestBody CreatePlaylistRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).createPlaylist(request));
     }
 
     @PutMapping()
-    @Operation(summary = "Modifica una playlist")
+    @Operation(summary = "Modifica una playlist.")
     public ResponseEntity<?> modificaPlaylist(@Valid @RequestBody ModificaPlaylistRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).editPlaylist(request));
     }
 
     @PostMapping("/aggiungi-brano-playlist")
-    @Operation(summary = "Aggiungi un brano in una playlist")
+    @Operation(summary = "Aggiungi un brano in una playlist.")
     public ResponseEntity<?> aggiungiBranoPlaylist(@Valid @RequestBody ManageBranoPlaylistRequest request) {
         return ((PlaylistService)service).addBranoToPlaylist(request);
     }
 
     @PostMapping("/rimuovi-brano-playlist")
-    @Operation(summary = "Rimuovi un brano da una playlist")
+    @Operation(summary = "Rimuovi un brano da una playlist.")
     public ResponseEntity<?> rimuoviBranoPlaylist(@Valid @RequestBody ManageBranoPlaylistRequest request) {
         return ((PlaylistService)service).deleteBranoFromPlaylist(request);
     }
 
     @GetMapping("/lista-playlist-utente")
-    @Operation(summary = "Lista delle playlist create da un utente")
+    @Operation(summary = "Lista delle playlist create da un utente.")
     public ResponseEntity<?> listaPlaylist(@RequestParam Long idUtente) {
         return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).listaPlaylist(idUtente));
     }
 
     @GetMapping()
-    @Operation(summary = "Dettaglio di una playlist")
+    @Operation(summary = "Dettaglio di una playlist.")
     public ResponseEntity<?> dettaglioPlaylist(@RequestParam Long idPlaylist) {
         return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).readPlaylist(idPlaylist));
     }

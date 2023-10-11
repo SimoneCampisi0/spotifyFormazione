@@ -48,7 +48,7 @@ public class ArtistaController extends AbstractController<Artista, Long> {
     }
 
     @DeleteMapping
-    @Operation(summary = "Elimina un artista")
+    @Operation(summary = "Elimina un artista.")
     public ResponseEntity<?> eliminaArtista(@RequestParam Long idArtista) throws Exception {
         ((ArtistaService)service).deleteArtista(idArtista);
         return ResponseEntity.ok(HttpStatus.OK);

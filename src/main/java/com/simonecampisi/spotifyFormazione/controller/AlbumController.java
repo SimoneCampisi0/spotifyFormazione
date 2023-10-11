@@ -18,19 +18,19 @@ import javax.validation.Valid;
 public class AlbumController extends AbstractController<Album, Long> {
 
     @PostMapping("/new")
-    @Operation(summary = "Aggiungi album")
+    @Operation(summary = "Aggiungi album.")
     public ResponseEntity<?> aggiungiAlbum (@Valid @RequestBody CreateAlbumRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).addAlbum(request));
     }
 
     @GetMapping("/dettaglio")
-    @Operation(summary = "Dettaglio di un album")
+    @Operation(summary = "Dettaglio di un album.")
     public ResponseEntity<?> dettaglioAlbum (@RequestParam Long idAlbum) {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).readAlbum(idAlbum));
     }
 
     @GetMapping("")
-    @Operation(summary = "Lista di tutti gli album")
+    @Operation(summary = "Lista di tutti gli album.")
     public ResponseEntity<?> listAlbum (@RequestParam(defaultValue = "0") Integer pageNumber,
                                         @RequestParam(defaultValue = "10") Integer pageSize,
                                         @RequestParam(defaultValue = "titolo") String sortBy,
@@ -40,7 +40,7 @@ public class AlbumController extends AbstractController<Album, Long> {
     }
 
     @GetMapping("/lista-album-da-artista")
-    @Operation(summary = "Lista di tutti gli album da idArtista")
+    @Operation(summary = "Lista di tutti gli album da idArtista.")
     public ResponseEntity<?> listAlbum (@RequestParam(defaultValue = "0") Integer pageNumber,
                                         @RequestParam(defaultValue = "10") Integer pageSize,
                                         @RequestParam(defaultValue = "titolo") String sortBy,
@@ -50,7 +50,7 @@ public class AlbumController extends AbstractController<Album, Long> {
     }
 
     @DeleteMapping("/elimina-album")
-    @Operation(summary = "Eliminazione di un album")
+    @Operation(summary = "Eliminazione di un album.")
     public ResponseEntity<?> eliminaAlbum (@RequestParam Long idAlbum) {
         return ((AlbumService)service).deleteAlbum(idAlbum);
     }

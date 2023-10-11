@@ -18,19 +18,19 @@ import javax.validation.Valid;
 //@CrossOrigin("http://localhost:4200/")
 public class UtenteController extends AbstractController<Utente, Long> {
     @PostMapping
-    @Operation(summary = "Aggiungi un utente")
+    @Operation(summary = "Aggiungi un utente.")
     public ResponseEntity<?> aggiungiUtente(@Valid @RequestBody CreateUtenteRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).createUtente(request));
     }
 
     @PutMapping
-    @Operation(summary = "Modifica un utente")
+    @Operation(summary = "Modifica un utente.")
     public ResponseEntity<?> modificaUtente(@Valid @RequestBody ModificaUtenteRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).modificaUtente(request));
     }
 
     @GetMapping
-    @Operation(summary = "Dettaglio di un utente")
+    @Operation(summary = "Dettaglio di un utente.")
     public ResponseEntity<?> dettaglioUtente(@RequestParam Long idUtente) {
         return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).readUtente(idUtente));
     }

@@ -17,19 +17,19 @@ import javax.validation.Valid;
 //@CrossOrigin("http://localhost:4200/")
 public class BranoController extends AbstractController<Brano, Long> {
     @PostMapping
-    @Operation(summary = "Aggiungi brano")
+    @Operation(summary = "Aggiungi un brano a un album.")
     public ResponseEntity<?> aggiungiBrano (@Valid @RequestBody CreateBranoRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).addBrano(request));
     }
 
     @GetMapping("/lista-brani-album")
-    @Operation(summary = "Lista di tutti i brani per album")
+    @Operation(summary = "Lista di tutti i brani per album.")
     public ResponseEntity<?> listaBrani (@RequestParam Long idAlbum) {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBrani(idAlbum));
     }
 
     @GetMapping("/lista-brani-playlist")
-    @Operation(summary = "Lista di tutti i brani per playlist")
+    @Operation(summary = "Lista di tutti i brani per playlist.")
     public ResponseEntity<?> listaBraniPerPlaylist (@RequestParam Long idPlaylist) {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBraniPerPlaylist(idPlaylist));
     }
@@ -41,16 +41,15 @@ public class BranoController extends AbstractController<Brano, Long> {
     }
 
     @PutMapping
-    @Operation(summary = "Modifica brano")
+    @Operation(summary = "Modifica un brano.")
     public ResponseEntity<?> modificaBrano (@Valid @RequestBody ModificaBranoRequest request) {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).modificaBrano(request));
     }
 
     @DeleteMapping
-    @Operation(summary = "Elimina brano da un album")
+    @Operation(summary = "Elimina un brano da un album.")
     public ResponseEntity<?> eliminaBrano (@RequestParam Long idBrano) {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).eliminaBrano(idBrano));
     }
-
 
 }
