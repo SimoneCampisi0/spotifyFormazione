@@ -22,12 +22,22 @@ public class UtenteService extends GenericService<Utente, Long> {
     @Autowired
     private UtenteHelper helper;
 
+    @Autowired
+    private PlaylistService playlistService;
+
     public UtenteResponse createUtente(CreateUtenteRequest request) {
         return helper.buildResponse(super.create(helper.buildEntityFromRequest(request)));
     }
 
     public UtenteResponse readUtente(Long idUtente) {
         return helper.buildResponse(super.read(idUtente));
+    }
+
+
+    public void deleteUtente(Long idUtente) {
+        Utente utente = super.read(idUtente);
+        playlistService.deletePlaylistByUtente(utente);
+        super.deleteById(idUtente);
     }
 
     public UtenteResponse modificaUtente(ModificaUtenteRequest request) {

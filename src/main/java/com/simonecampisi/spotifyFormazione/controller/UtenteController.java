@@ -49,7 +49,7 @@ public class UtenteController extends AbstractController<Utente, Long> {
     @DeleteMapping
     @Operation(summary = "Elimina un utente.")
     public ResponseEntity<?> eliminaUtente(@RequestParam Long idUtente) {
-        service.deleteById(idUtente);
+        ((UtenteService)service).deleteUtente(idUtente);
         return ResponseEntity.status(HttpStatus.OK).body("OK");
     }
 

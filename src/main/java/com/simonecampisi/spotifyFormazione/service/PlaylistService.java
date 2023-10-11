@@ -6,10 +6,14 @@ import com.simonecampisi.spotifyFormazione.dto.request.playlist.ModificaPlaylist
 import com.simonecampisi.spotifyFormazione.dto.response.playlist.PlaylistResponse;
 import com.simonecampisi.spotifyFormazione.model.Brano;
 import com.simonecampisi.spotifyFormazione.model.Playlist;
+import com.simonecampisi.spotifyFormazione.model.Utente;
+import com.simonecampisi.spotifyFormazione.repository.PlaylistRepository;
 import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
 import com.simonecampisi.spotifyFormazione.service.helper.PlaylistHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 
 @Service
@@ -37,5 +41,10 @@ public class PlaylistService extends GenericService<Playlist, Long> {
         playlist.getElencoBrani().add(brano);
 
         super.update(playlist);
+    }
+
+    @Transactional
+    public void deletePlaylistByUtente(Utente utente) { //TODO Bisogna poter eliminare le playlist senza intaccare i brani a esse collegate.
+        ((PlaylistRepository)repository).deleteAllByUtente(utente);
     }
 }
