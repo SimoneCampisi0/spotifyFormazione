@@ -52,7 +52,7 @@ public class AlbumController extends AbstractController<Album, Long> {
     @DeleteMapping("/elimina-album")
     @Operation(summary = "Eliminazione di un album")
     public ResponseEntity<?> eliminaAlbum (@RequestParam Long idAlbum) {
-        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).deleteAlbum(idAlbum));
+        return ((AlbumService)service).deleteAlbum(idAlbum);
     }
 
 }

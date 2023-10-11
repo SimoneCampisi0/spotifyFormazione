@@ -10,6 +10,7 @@ import com.simonecampisi.spotifyFormazione.repository.PlaylistRepository;
 import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
 import com.simonecampisi.spotifyFormazione.service.helper.BranoHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,6 +57,21 @@ public class BranoService extends GenericService<Brano, Long> {
 
     public BranoResponse modificaBrano(ModificaBranoRequest request) {
         return helper.buildResponse(super.update(helper.buildBranoUpdate(request, albumService.read(request.getIdAlbum()))));
+    }
+
+    public ResponseEntity<?> eliminaBrano(Long idBrano) {
+        Brano brano = super.read(idBrano);
+
+        if (brano == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        if(brano.getElencoPlaylist().size() >= 1) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        super.deleteById(idBrano);
+        return ResponseEntity.ok().build();
     }
 
 }

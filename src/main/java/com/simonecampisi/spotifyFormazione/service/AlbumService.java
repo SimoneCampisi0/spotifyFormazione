@@ -64,27 +64,6 @@ public class AlbumService extends GenericService<Album, Long> {
         return new PageImpl<AlbumResponse>(albumResponseList, pageable,  ((AlbumRepository)repository).findAllByArtista_Id(idArtista).size());
     }
 
-//    public ResponseEntity<?> deleteAlbum(Long idAlbum) {
-//        boolean eliminaAlbum = true;
-//        Album album = super.read(idAlbum);
-//        if(album.getElencoBrani().size() >=1) {
-//            for (Brano brano : album.getElencoBrani()) {
-//                if(brano.getElencoPlaylist().size() >= 1) {
-//
-//                    System.out.println("playlist.size: "+brano.getElencoPlaylist().size()+ " isEmpty: "+brano.getElencoPlaylist().isEmpty());
-//
-//                    eliminaAlbum = false;
-//                }
-//            }
-//            if(eliminaAlbum) {
-//                super.deleteById(idAlbum);
-//                return ResponseEntity.ok(HttpStatus.OK);
-//            }
-//            return ResponseEntity.badRequest().build();
-//        }
-//
-//    }
-
     public ResponseEntity<?> deleteAlbum(Long idAlbum) {
         Album album = super.read(idAlbum);
 
