@@ -3,6 +3,7 @@ package com.simonecampisi.spotifyFormazione.controller;
 import com.simonecampisi.spotifyFormazione.controller.abstraction.AbstractController;
 import com.simonecampisi.spotifyFormazione.dto.request.utente.CreateUtenteRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.utente.ModificaUtenteRequest;
+import com.simonecampisi.spotifyFormazione.dto.response.ErrorsResponse;
 import com.simonecampisi.spotifyFormazione.model.Utente;
 import com.simonecampisi.spotifyFormazione.model.enums.SortingOrder;
 import com.simonecampisi.spotifyFormazione.service.UtenteService;
@@ -20,19 +21,31 @@ public class UtenteController extends AbstractController<Utente, Long> {
     @PostMapping("/new")
     @Operation(summary = "Aggiungi un utente.")
     public ResponseEntity<?> aggiungiUtente(@Valid @RequestBody CreateUtenteRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).createUtente(request));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).createUtente(request));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @PutMapping
     @Operation(summary = "Modifica un utente.")
     public ResponseEntity<?> modificaUtente(@Valid @RequestBody ModificaUtenteRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).modificaUtente(request));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).modificaUtente(request));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Dettaglio di un utente.")
     public ResponseEntity<?> dettaglioUtente(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).readUtente(id));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).readUtente(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @GetMapping("/lista-utenti")
@@ -43,14 +56,22 @@ public class UtenteController extends AbstractController<Utente, Long> {
             @RequestParam(defaultValue = "idUtente") String sortBy,
             @RequestParam(defaultValue = "ASC") SortingOrder sortingOrder
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).findAllUtenti(pageNumber, pageSize, sortBy, sortingOrder));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((UtenteService)service).findAllUtenti(pageNumber, pageSize, sortBy, sortingOrder));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Elimina un utente.")
     public ResponseEntity<?> eliminaUtente(@PathVariable Long id) {
-        ((UtenteService)service).deleteUtente(id);
-        return ResponseEntity.status(HttpStatus.OK).body("OK");
+        try {
+            ((UtenteService)service).deleteUtente(id);
+            return ResponseEntity.status(HttpStatus.OK).body("OK");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
 

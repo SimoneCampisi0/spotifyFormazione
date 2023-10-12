@@ -3,6 +3,7 @@ package com.simonecampisi.spotifyFormazione.controller;
 import com.simonecampisi.spotifyFormazione.controller.abstraction.AbstractController;
 import com.simonecampisi.spotifyFormazione.dto.request.album.CreateAlbumRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.album.ModificaAlbumRequest;
+import com.simonecampisi.spotifyFormazione.dto.response.ErrorsResponse;
 import com.simonecampisi.spotifyFormazione.model.Album;
 import com.simonecampisi.spotifyFormazione.model.enums.SortingOrder;
 import com.simonecampisi.spotifyFormazione.service.AlbumService;
@@ -21,19 +22,31 @@ public class AlbumController extends AbstractController<Album, Long> {
     @PostMapping("/new")
     @Operation(summary = "Aggiungi album.")
     public ResponseEntity<?> aggiungiAlbum (@Valid @RequestBody CreateAlbumRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).addAlbum(request));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).addAlbum(request));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @PutMapping()
     @Operation(summary = "Modifica album.")
     public ResponseEntity<?> aggiungiAlbum (@Valid @RequestBody ModificaAlbumRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).modificaAlbum(request));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).modificaAlbum(request));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Dettaglio di un album.")
     public ResponseEntity<?> dettaglioAlbum (@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).readAlbum(id));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).readAlbum(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @GetMapping()
@@ -43,7 +56,11 @@ public class AlbumController extends AbstractController<Album, Long> {
                                         @RequestParam(defaultValue = "titolo") String sortBy,
                                         @RequestParam(defaultValue = "ASC") SortingOrder sortingOrder,
                                         @RequestParam(required = false) String sortingFilter) {
-        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).listAlbum(pageNumber, pageSize, sortBy, sortingOrder, sortingFilter));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).listAlbum(pageNumber, pageSize, sortBy, sortingOrder, sortingFilter));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @GetMapping("/lista-album-da-artista")
@@ -53,13 +70,21 @@ public class AlbumController extends AbstractController<Album, Long> {
                                         @RequestParam(defaultValue = "titolo") String sortBy,
                                         @RequestParam(defaultValue = "ASC") SortingOrder sortingOrder,
                                         @RequestParam Long idArtista) {
-        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).listAlbumPerArtista(pageNumber, pageSize, sortBy, sortingOrder, idArtista));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).listAlbumPerArtista(pageNumber, pageSize, sortBy, sortingOrder, idArtista));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @DeleteMapping("/elimina-album/{id}")
     @Operation(summary = "Eliminazione di un album.")
     public ResponseEntity<?> eliminaAlbum (@PathVariable Long id) {
-        return ((AlbumService)service).deleteAlbum(id);
+        try {
+            return ((AlbumService)service).deleteAlbum(id);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
 }

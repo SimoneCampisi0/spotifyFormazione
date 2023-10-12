@@ -3,6 +3,7 @@ package com.simonecampisi.spotifyFormazione.controller;
 import com.simonecampisi.spotifyFormazione.controller.abstraction.AbstractController;
 import com.simonecampisi.spotifyFormazione.dto.request.brano.CreateBranoRequest;
 import com.simonecampisi.spotifyFormazione.dto.request.brano.ModificaBranoRequest;
+import com.simonecampisi.spotifyFormazione.dto.response.ErrorsResponse;
 import com.simonecampisi.spotifyFormazione.model.Brano;
 import com.simonecampisi.spotifyFormazione.service.BranoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,37 +20,62 @@ public class BranoController extends AbstractController<Brano, Long> {
     @PostMapping
     @Operation(summary = "Aggiungi un brano a un album.")
     public ResponseEntity<?> aggiungiBrano (@Valid @RequestBody CreateBranoRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).addBrano(request));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).addBrano(request));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @GetMapping("/lista-brani-album/{idAlbum}")
     @Operation(summary = "Lista di tutti i brani per album.")
     public ResponseEntity<?> listaBrani (@PathVariable Long idAlbum) {
-        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBrani(idAlbum));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBrani(idAlbum));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @GetMapping("/lista-brani-playlist/{idPlaylist}")
     @Operation(summary = "Lista di tutti i brani per playlist.")
     public ResponseEntity<?> listaBraniPerPlaylist (@PathVariable Long idPlaylist) {
-        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBraniPerPlaylist(idPlaylist));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBraniPerPlaylist(idPlaylist));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @GetMapping("/lista-selezione-brani")
     @Operation(summary = "Lista di tutti i brani l'inserimento in playlist.")
     public ResponseEntity<?> listaBraniPerPlaylist () {
-        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBraniPerInserimento());
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBraniPerInserimento());
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @PutMapping
     @Operation(summary = "Modifica un brano.")
     public ResponseEntity<?> modificaBrano (@Valid @RequestBody ModificaBranoRequest request) {
-        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).modificaBrano(request));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).modificaBrano(request));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Elimina un brano da un album.")
     public ResponseEntity<?> eliminaBrano (@PathVariable Long id) {
-        return ((BranoService)service).eliminaBrano(id);
+        try {
+            return ((BranoService)service).eliminaBrano(id);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorsResponse(e.getMessage()));
+        }
     }
 
 }
