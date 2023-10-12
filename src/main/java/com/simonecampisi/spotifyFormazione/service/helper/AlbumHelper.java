@@ -53,20 +53,13 @@ public class AlbumHelper implements IHelper<Album, AbstractAlbumRequest> {
     }
     @Override
     public Album buildEntityFromRequest(AbstractAlbumRequest request) {
-        Album album = new Album();
-
-        album.setTitolo(request.getTitolo());
-        album.setGenereMusicale(request.getGenereMusicale());
-        album.setArtista(readArtista(request.getIdArtista()));
-        album.setDataUscita(request.getDataUscita());
-
-        if(request.getCover().isEmpty()) {
-            album.setCover(null);
-        } else {
-            album.setCover(imageManager.base64ToImg(request.getCover()));
-        }
-
-        return album;
+        return Album.builder()
+                .titolo(request.getTitolo())
+                .genereMusicale(request.getGenereMusicale())
+                .artista(readArtista(request.getIdArtista()))
+                .dataUscita(request.getDataUscita())
+                .cover(request.getCover().isEmpty() ? null : imageManager.base64ToImg(request.getCover()))
+                .build();
     }
 
     public AlbumResponse buildResponse(Album album) {

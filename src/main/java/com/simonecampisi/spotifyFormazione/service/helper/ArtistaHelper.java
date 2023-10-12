@@ -12,29 +12,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ArtistaHelper implements IHelper<Artista, AbstractArtistaRequest>{
 
-//    public byte [] base64ToImg(String base64) {
-//        byte [] img = null;
-//        try {
-//            img = Base64.getDecoder().decode(base64);
-//        } catch (Exception e) {
-//            System.out.println("Error: "+e);
-//        }
-//        return img;
-//    }
-
     @Autowired
     private ImageManager imageManager;
 
     @Override
     public Artista buildEntityFromRequest(AbstractArtistaRequest request) {
-        Artista artista = new Artista();
-        artista.setNome(request.getNome());
-        if(request.getImgProfilo().isEmpty()) {
-            artista.setImgProfilo(null);
-        } else {
-            artista.setImgProfilo(imageManager.base64ToImg(request.getImgProfilo()));
-        }
-        return artista;
+        return Artista.builder()
+                .nome(request.getNome())
+                .imgProfilo(request.getImgProfilo().isEmpty() ? null : imageManager.base64ToImg(request.getImgProfilo()))
+                .build();
     }
 
     public ArtistaResponse buildResponse(Artista entity) {

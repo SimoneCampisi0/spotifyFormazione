@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 //@EqualsAndHashCode(exclude = "elencoBrani")
