@@ -22,15 +22,15 @@ public class BranoController extends AbstractController<Brano, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).addBrano(request));
     }
 
-    @GetMapping("/lista-brani-album")
+    @GetMapping("/lista-brani-album/{idAlbum}")
     @Operation(summary = "Lista di tutti i brani per album.")
-    public ResponseEntity<?> listaBrani (@RequestParam Long idAlbum) {
+    public ResponseEntity<?> listaBrani (@PathVariable Long idAlbum) {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBrani(idAlbum));
     }
 
-    @GetMapping("/lista-brani-playlist")
+    @GetMapping("/lista-brani-playlist/{idPlaylist}")
     @Operation(summary = "Lista di tutti i brani per playlist.")
-    public ResponseEntity<?> listaBraniPerPlaylist (@RequestParam Long idPlaylist) {
+    public ResponseEntity<?> listaBraniPerPlaylist (@PathVariable Long idPlaylist) {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).listaBraniPerPlaylist(idPlaylist));
     }
 
@@ -46,10 +46,10 @@ public class BranoController extends AbstractController<Brano, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).modificaBrano(request));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Operation(summary = "Elimina un brano da un album.")
-    public ResponseEntity<?> eliminaBrano (@RequestParam Long idBrano) {
-        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).eliminaBrano(idBrano));
+    public ResponseEntity<?> eliminaBrano (@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).eliminaBrano(id));
     }
 
 }

@@ -30,10 +30,10 @@ public class AlbumController extends AbstractController<Album, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).modificaAlbum(request));
     }
 
-    @GetMapping("/dettaglio")
+    @GetMapping("/{id}}")
     @Operation(summary = "Dettaglio di un album.")
-    public ResponseEntity<?> dettaglioAlbum (@RequestParam Long idAlbum) {
-        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).readAlbum(idAlbum));
+    public ResponseEntity<?> dettaglioAlbum (@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).readAlbum(id));
     }
 
     @GetMapping("")
@@ -56,10 +56,10 @@ public class AlbumController extends AbstractController<Album, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).listAlbumPerArtista(pageNumber, pageSize, sortBy, sortingOrder, idArtista));
     }
 
-    @DeleteMapping("/elimina-album")
+    @DeleteMapping("/elimina-album/{id}")
     @Operation(summary = "Eliminazione di un album.")
-    public ResponseEntity<?> eliminaAlbum (@RequestParam Long idAlbum) {
-        return ((AlbumService)service).deleteAlbum(idAlbum);
+    public ResponseEntity<?> eliminaAlbum (@PathVariable Long id) {
+        return ((AlbumService)service).deleteAlbum(id);
     }
 
 }

@@ -41,16 +41,16 @@ public class PlaylistController extends AbstractController<Playlist, Long> {
         return ((PlaylistService)service).deleteBranoFromPlaylist(request);
     }
 
-    @GetMapping("/lista-playlist-utente")
+    @GetMapping("/lista-playlist-utente/{idUtente}")
     @Operation(summary = "Lista delle playlist create da un utente.")
-    public ResponseEntity<?> listaPlaylist(@RequestParam Long idUtente) {
+    public ResponseEntity<?> listaPlaylist(@PathVariable Long idUtente) {
         return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).listaPlaylist(idUtente));
     }
 
-    @GetMapping()
+    @GetMapping("/{id}")
     @Operation(summary = "Dettaglio di una playlist.")
-    public ResponseEntity<?> dettaglioPlaylist(@RequestParam Long idPlaylist) {
-        return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).readPlaylist(idPlaylist));
+    public ResponseEntity<?> dettaglioPlaylist(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).readPlaylist(id));
     }
 
 }

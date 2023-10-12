@@ -30,13 +30,13 @@ public class ArtistaController extends AbstractController<Artista, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((ArtistaService)service).modificaArtista(request));
     }
 
-    @GetMapping()
+    @GetMapping("/{id}")
     @Operation(summary = "Dettaglio artista.")
-    public ResponseEntity<?> dettaglioArtista(@RequestParam Long idArtista) {
-        return ResponseEntity.status(HttpStatus.OK).body(((ArtistaService)service).readArtista(idArtista));
+    public ResponseEntity<?> dettaglioArtista(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(((ArtistaService)service).readArtista(id));
     }
 
-    @GetMapping("/lista-artisti")
+    @GetMapping()
     @Operation(summary = "Lista artista.")
     public ResponseEntity<?> listaArtisti(
             @RequestParam(defaultValue = "0") Integer pageNumber,
@@ -47,10 +47,10 @@ public class ArtistaController extends AbstractController<Artista, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((ArtistaService)service).findAllPage(pageNumber, pageSize, sortBy, sortingOrder));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @Operation(summary = "Elimina un artista.")
-    public ResponseEntity<?> eliminaArtista(@RequestParam Long idArtista) throws Exception {
-        ((ArtistaService)service).deleteArtista(idArtista);
+    public ResponseEntity<?> eliminaArtista(@PathVariable Long id) throws Exception {
+        ((ArtistaService)service).deleteArtista(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }
