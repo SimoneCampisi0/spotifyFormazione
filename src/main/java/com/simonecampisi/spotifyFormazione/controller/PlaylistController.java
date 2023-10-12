@@ -53,4 +53,9 @@ public class PlaylistController extends AbstractController<Playlist, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).readPlaylist(id));
     }
 
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Eliminazione di una playlist.")
+    public ResponseEntity<?> deletePlaylist(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(((PlaylistService)service).deletePlaylist(id));
+    }
 }

@@ -10,6 +10,8 @@ import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
 import com.simonecampisi.spotifyFormazione.service.helper.ArtistaHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,7 +52,14 @@ public class ArtistaService extends GenericService<Artista, Long> {
         return new PageImpl<ArtistaResponse>(artistaResponseList, pageable,  repository.findAll().size());
     }
 
-    public void deleteArtista(Long idArtista) throws Exception {
+    public ResponseEntity<?> deleteArtista(Long idArtista) throws Exception {
+        Artista artista = super.read(idArtista);
+
+        if(artista == null) {
+            return ResponseEntity.notFound().build();
+        }
+
         repository.deleteById(idArtista);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 }

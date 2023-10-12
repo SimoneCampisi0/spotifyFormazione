@@ -49,7 +49,7 @@ public class BranoController extends AbstractController<Brano, Long> {
     @DeleteMapping("/{id}")
     @Operation(summary = "Elimina un brano da un album.")
     public ResponseEntity<?> eliminaBrano (@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(((BranoService)service).eliminaBrano(id));
+        return ((BranoService)service).eliminaBrano(id);
     }
 
 }

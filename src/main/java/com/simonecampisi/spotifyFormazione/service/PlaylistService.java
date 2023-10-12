@@ -68,8 +68,18 @@ public class PlaylistService extends GenericService<Playlist, Long> {
     }
 
     @Transactional
-    public void deletePlaylistByUtente(Utente utente) { //TODO Bisogna poter eliminare le playlist senza intaccare i brani a esse collegate.
+    public void deletePlaylistByUtente(Utente utente) {
         ((PlaylistRepository)repository).deleteAllByUtente(utente);
+    }
+
+    public ResponseEntity<?> deletePlaylist(Long idPlaylist) {
+        Playlist playlist = super.read(idPlaylist);
+        if(playlist == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        super.deleteById(idPlaylist);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     public List<PlaylistResponse> listaPlaylist(Long idUtente) {

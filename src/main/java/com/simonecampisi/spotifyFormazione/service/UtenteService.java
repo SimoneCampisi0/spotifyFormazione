@@ -11,6 +11,8 @@ import com.simonecampisi.spotifyFormazione.service.abstraction.GenericService;
 import com.simonecampisi.spotifyFormazione.service.helper.UtenteHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,10 +36,15 @@ public class UtenteService extends GenericService<Utente, Long> {
     }
 
 
-    public void deleteUtente(Long idUtente) {
+    public ResponseEntity<?> deleteUtente(Long idUtente) {
         Utente utente = super.read(idUtente);
+        if(utente == null) {
+            return ResponseEntity.notFound().build();
+        }
+
         playlistService.deletePlaylistByUtente(utente);
         super.deleteById(idUtente);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     public UtenteResponse modificaUtente(ModificaUtenteRequest request) {

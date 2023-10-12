@@ -50,7 +50,6 @@ public class ArtistaController extends AbstractController<Artista, Long> {
     @DeleteMapping("/{id}")
     @Operation(summary = "Elimina un artista.")
     public ResponseEntity<?> eliminaArtista(@PathVariable Long id) throws Exception {
-        ((ArtistaService)service).deleteArtista(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ((ArtistaService)service).deleteArtista(id);
     }
 }
