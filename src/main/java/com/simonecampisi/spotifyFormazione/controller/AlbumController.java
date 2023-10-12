@@ -30,13 +30,13 @@ public class AlbumController extends AbstractController<Album, Long> {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).modificaAlbum(request));
     }
 
-    @GetMapping("/{id}}")
+    @GetMapping("/{id}")
     @Operation(summary = "Dettaglio di un album.")
     public ResponseEntity<?> dettaglioAlbum (@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(((AlbumService)service).readAlbum(id));
     }
 
-    @GetMapping("")
+    @GetMapping()
     @Operation(summary = "Lista di tutti gli album.")
     public ResponseEntity<?> listAlbum (@RequestParam(defaultValue = "0") Integer pageNumber,
                                         @RequestParam(defaultValue = "10") Integer pageSize,
